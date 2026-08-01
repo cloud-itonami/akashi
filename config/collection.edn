@@ -9,11 +9,11 @@
          :policy-approval-file "data/registry/source-policy-approval.public-page-scribe.edn"}
  :git {:datalad-save true
        :push true
-       :remote "origin"
+       :remote "cloud-itonami"
        :branch "data/continuous-collection"
        ;; Set to the name of a configured git-annex special remote. Git stores
        ;; hashes/pointers; this remote stores the actual image/video bytes.
-       :annex-remote nil}
+       :annex-remote "murakumo-benjamin"}
 
  ;; Collection is deliberately target-driven. Add reviewed advertiser/search
  ;; URLs or enable official API sources; never broaden this into logged-in UI

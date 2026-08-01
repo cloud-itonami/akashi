@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Tailnet-only read access to the Git/DataLad collection. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.murakumo.akashi-public-data</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>{{PYTHON_BIN}}</string>
+    <string>-m</string>
+    <string>http.server</string>
+    <string>8042</string>
+    <string>--bind</string>
+    <string>{{TAILSCALE_IP}}</string>
+    <string>--directory</string>
+    <string>{{REPO_DIR}}/data/collection</string>
+  </array>
+  <key>WorkingDirectory</key><string>{{REPO_DIR}}</string>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>ThrottleInterval</key><integer>10</integer>
+  <key>ProcessType</key><string>Background</string>
+  <key>StandardOutPath</key><string>{{LOG_DIR}}/public-data.log</string>
+  <key>StandardErrorPath</key><string>{{LOG_DIR}}/public-data.log</string>
+</dict>
+</plist>

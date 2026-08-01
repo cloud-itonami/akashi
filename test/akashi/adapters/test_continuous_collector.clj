@@ -136,11 +136,27 @@
 (deftest murakumo-launchd-template-is-renderable-without-secrets
   (let [template (slurp "deploy/com.murakumo.akashi-collector.plist.tmpl")
         plist (murakumo/render-plist template
-                                     {:repo-dir "/srv/a&b/akashi"
-                                      :clojure-bin "/opt/homebrew/bin/clojure"
+                                      {:repo-dir "/srv/a&b/akashi"
+                                       :clojure-bin "/opt/homebrew/bin/clojure"
+                                      :python-bin "/usr/bin/python3"
+                                      :tailscale-ip "100.64.0.1"
                                       :log-dir "/srv/log"
                                       :interval-seconds 21600})]
     (is (str/includes? plist "<integer>21600</integer>"))
     (is (str/includes? plist "/srv/a&amp;b/akashi"))
     (is (not (str/includes? plist "{{")))
     (is (not (str/includes? plist "ACCESS_TOKEN")))))
+
+(deftest tailnet-public-data-template-is-renderable-and-resident
+  (let [template (slurp "deploy/com.murakumo.akashi-public-data.plist.tmpl")
+        plist (murakumo/render-plist template
+                                     {:repo-dir "/srv/akashi"
+                                      :clojure-bin "/opt/homebrew/bin/clojure"
+                                      :python-bin "/usr/bin/python3"
+                                      :tailscale-ip "100.64.0.1"
+                                      :log-dir "/srv/log"
+                                      :interval-seconds 21600})]
+    (is (str/includes? plist "<key>KeepAlive</key><true/>"))
+    (is (str/includes? plist "100.64.0.1"))
+    (is (str/includes? plist "/srv/akashi/data/collection"))
+    (is (not (str/includes? plist "{{")))))

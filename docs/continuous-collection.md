@@ -1,8 +1,10 @@
 # Continuous collection on Murakumo
 
-The collector runs one bounded cycle every six hours on `naphtali`, selected by
-Murakumo as a durable `pin` + `compute` node. launchd supplies residence and
-restart scheduling; Murakumo's task plane installs or updates that residence.
+The collector runs one bounded cycle every six hours. launchd supplies
+residence and restart scheduling; Murakumo's task plane installs or updates
+that residence. A second LaunchAgent serves `data/collection` on port 8042,
+bound only to the host's Tailscale IPv4 address, and uses `KeepAlive` to recover
+from process failure.
 
 No source is enabled in the committed configuration. This is intentional: a
 source must have a concrete reviewed target, a matching `allowed` approval EDN,
@@ -69,10 +71,22 @@ Each successful cycle writes:
 - `data/collection/media/sha256/...`: content-addressed images/videos
 
 Small EDN stays directly in Git. Raw responses and media match `.gitattributes`
-rules for git-annex. Set `:git :annex-remote` to an already configured special
-remote; otherwise actual media bytes remain only on the collector node even
-though Git retains their path, CIDv1, SHA-256, MIME type, and size. Collection
-commits are pushed to `data/continuous-collection` by default.
+rules for git-annex. The active `murakumo-benjamin` encrypted rsync special
+remote keeps another copy at `/Users/Shared/akashi-annex` on `benjamin`; the
+collector copies annexed media and raw responses there on each successful
+published run. Collection commits are pushed to `data/continuous-collection`.
+The remote was initialized over Tailscale SSH with shared encryption:
+
+```bash
+git annex initremote murakumo-benjamin type=rsync \
+  rsyncurl=benjamin:/Users/Shared/akashi-annex encryption=shared
+git annex copy data/collection/media data/collection/runs \
+  --to murakumo-benjamin
+```
+
+Shared encryption protects bytes at rest on the backup node; its decryption
+material is intentionally stored in the repository's `git-annex` branch so a
+restored clone can enable the remote.
 
 Example queries:
 
@@ -107,11 +121,12 @@ task-plane tests before running the command above.
 
 The task clones the repository, checks out `data/continuous-collection`, merges
 the latest `origin/main` into that data branch, renders a token-free user
-LaunchAgent, and starts `com.murakumo.akashi-collector`. A merge conflict stops
-the task for operator review. Inspect the service with:
+LaunchAgents, and starts both the collector and Tailnet-only public-data
+service. A merge conflict stops the task for operator review. Inspect them with:
 
 ```bash
 launchctl print gui/$(id -u)/com.murakumo.akashi-collector
+launchctl print gui/$(id -u)/com.murakumo.akashi-public-data
 tail -f "$HOME/.akashi/collector.log"
 ```
 

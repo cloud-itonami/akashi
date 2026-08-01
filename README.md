@@ -94,7 +94,7 @@ approval transaction are configured. Python is not an akashi adapter surface. Se
 - `data/inbox/` + `config/manual-capture.example.edn` — offline manual-capture
   inbox for operator-saved HTML and media; Murakumo ingests it without scraping
 - `deploy/murakumo-install-task.edn` — Murakumo task-plane installation of the
-  resident collector on the durable `naphtali` pin+compute node
+  resident collector and Tailnet-only data service
 - `docs/continuous-collection.md` — activation, DataLad/annex publication, query,
   and operational runbook
 - `src/akashi/adapters/persist_fixture_edn.cljc` — materializes the deterministic tx-data
