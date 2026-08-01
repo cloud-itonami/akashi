@@ -1,2 +1,6 @@
 /.cpcache/
 /.nrepl-port
+/.clj-kondo/.cache/
+/data/collection/.lock
+/data/inbox/*
+!/data/inbox/.gitkeep

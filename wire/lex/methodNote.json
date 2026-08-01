@@ -20,7 +20,7 @@
           },
           "methodFamily" : {
             "type" : "string",
-            "knownValues" : [ "source-policy", "snapshot-parser", "creative-normalizer", "landing-evidence", "cross-platform-link", "malak-candidate" ]
+            "knownValues" : [ "source-policy", "snapshot-parser", "public-information-scribe", "official-api-or-public-page", "creative-normalizer", "landing-evidence", "cross-platform-link", "malak-candidate" ]
           },
           "version" : {
             "type" : "string",

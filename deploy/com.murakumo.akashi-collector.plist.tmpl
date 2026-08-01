@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Installed on one Murakumo pin+compute node. Credentials are read from the
+     process environment or macOS Keychain; no token is embedded here. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.murakumo.akashi-collector</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>{{CLOJURE_BIN}}</string>
+    <string>-M:collect</string>
+    <string>--config</string>
+    <string>config/collection.edn</string>
+    <string>--publish</string>
+  </array>
+  <key>WorkingDirectory</key><string>{{REPO_DIR}}</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>StartInterval</key><integer>{{INTERVAL_SECONDS}}</integer>
+  <key>ProcessType</key><string>Background</string>
+  <key>LowPriorityIO</key><true/>
+  <key>StandardOutPath</key><string>{{LOG_DIR}}/collector.log</string>
+  <key>StandardErrorPath</key><string>{{LOG_DIR}}/collector.log</string>
+</dict>
+</plist>

@@ -56,13 +56,14 @@ ADR-2606022300 R1 activation and source-policy review gates are attested.
 
 ## R0 Coverage
 
-R0 coverage is schema, fixture, and reviewed-local-export coverage only. There
-are no live platform collectors or collection jobs yet. All executable adapter
-code is `.cljc`; Python is not an akashi adapter surface. See:
+R0 coverage remains source-policy gated. A bounded JVM collector, Git/Datomic
+catalog, DataLad/git-annex media store, and Murakumo launchd residence are now
+implemented; no production source is enabled until its target, credential, and
+approval transaction are configured. Python is not an akashi adapter surface. See:
 
 - `COVERAGE.md` — source / field coverage matrix
 - `MATURITY.md` — maturity scorecard and R1 work list
-- `wire/registry/source-catalog.seed.json` — planning seed for Meta, X, LINE,
+- `wire/registry/source-catalog.seed.json` — planning seed for Meta, X, LinkedIn, LINE,
   Google/YouTube, TikTok, and regulator repositories
 - `wire/registry/source-policy-reviews.seed.json` — data-driven review state; Meta/X
   public-page scribe path is enabled, other live collection remains disabled
@@ -86,6 +87,16 @@ code is `.cljc`; Python is not an akashi adapter surface. See:
 - `src/akashi/adapters/edn_query.cljc` — fixture tx-data query helper for platform,
   advertiser, landing-domain, and count queries without a live DB; it also
   materializes the Datomic scalar tx bundle for the same queries
+- `src/akashi/adapters/continuous_collector.clj` — one policy-gated collection
+  cycle for approved public pages, Meta Ad Library API, and LinkedIn Ad Library
+  API; stores raw responses, records, and content-addressed media
+- `config/collection.edn` — disabled-by-default source targets and six-hour cadence
+- `data/inbox/` + `config/manual-capture.example.edn` — offline manual-capture
+  inbox for operator-saved HTML and media; Murakumo ingests it without scraping
+- `deploy/murakumo-install-task.edn` — Murakumo task-plane installation of the
+  resident collector on the durable `naphtali` pin+compute node
+- `docs/continuous-collection.md` — activation, DataLad/annex publication, query,
+  and operational runbook
 - `src/akashi/adapters/persist_fixture_edn.cljc` — materializes the deterministic tx-data
   plus a storage manifest under `data/` for git/DataLad/kotoba-rad handoff
 - `data/akashi-platform-ad-library.fixture.tx.kotoba.edn` — materialized fixture
@@ -119,9 +130,9 @@ The persisted akashi dataset is the fixture dataset only:
 - kotoba-rad journal:
   `/80-data/kotoba-rad/akashi.identity.journal.edn`
 
-No production `data/scribe/*.edn` public-page capture has been materialized in
-this workspace yet. The public-page scribe is the production path, but it still
-requires an operator-provided public URL or saved public page file.
+No production `data/collection/` capture has been materialized in this workspace
+yet. The continuous path is deployable but deliberately has zero enabled sources
+until reviewed targets and official API approvals/credentials are supplied.
 
 ## Immutable Gates
 

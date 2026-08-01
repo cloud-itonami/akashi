@@ -54,18 +54,23 @@
                 "sourceLabel" (get sr "sourceLabel")})))
 
 (defn parse-platform-ad-library-fixture
-  [payload {:keys [attesting-did source-policy-cid method-note-cid]}]
+  [payload {:keys [attesting-did source-policy-cid method-note-cid parser-version
+                   method-id method-family limits]
+            :or {parser-version PARSER-VERSION
+                 method-id "akashi.platform-ad-library-fixture-parser"
+                 method-family "snapshot-parser"
+                 limits ["fixture-only parser; does not fetch remote ad libraries"
+                         "requires a sourcePolicySnapshot before any live adapter is enabled"
+                         "preserves source-disclosed fields and does not infer targeting profiles"]}}]
   (let [source (get payload "source")
         records (get payload "records")
         captured-at (get payload "capturedAt")
         method-note {"createdAt" captured-at
-                     "methodId" "akashi.platform-ad-library-fixture-parser"
-                     "methodFamily" "snapshot-parser"
-                     "version" PARSER-VERSION
+                     "methodId" method-id
+                     "methodFamily" method-family
+                     "version" parser-version
                      "sourceCodeCid" SOURCE-CODE-CID
-                     "limits" ["fixture-only parser; does not fetch remote ad libraries"
-                               "requires a sourcePolicySnapshot before any live adapter is enabled"
-                               "preserves source-disclosed fields and does not infer targeting profiles"]
+                     "limits" limits
                      "falsePositiveNotes" ["same page name or advertiser display name is not proof of common control"
                                            "source issue or political labels are mirrored, not adjudicated"]
                      "attestingDid" attesting-did}
@@ -88,7 +93,7 @@
                                "sourceUrl" (get sr "sourceUrl")
                                "payloadCid" (cid "payload" sr)
                                "payloadSha256" (sha256-json sr)
-                               "parserVersion" PARSER-VERSION
+                               "parserVersion" parser-version
                                "sourceLimited" true
                                "attestingDid" attesting-did}
                      snapshot-cid (cid "snapshot" snapshot)
@@ -123,6 +128,10 @@
                                        "creativeTextSha256" (when creative-text (sha256-hex creative-text))
                                        "mediaCid" (get media "cid")
                                        "mediaSha256" (get media "sha256")
+                                       "mediaPaths" (seq (get media "paths"))
+                                       "mediaCids" (seq (get media "cids"))
+                                       "mediaSha256s" (seq (get media "sha256s"))
+                                       "mediaContentTypes" (seq (get media "contentTypes"))
                                        "language" (get sr "language")
                                        "disclosedCategory" (get sr "disclosedCategory")
                                        "sourceIssuePoliticalFlag" (get sr "sourceIssuePoliticalFlag" "not-applicable")

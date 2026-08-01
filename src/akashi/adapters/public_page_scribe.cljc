@@ -4,9 +4,9 @@
   snapshot, and parses only source-disclosed/operator-supplied fields."
   (:require [akashi.adapters.dry-run-fixtures :as dry-run]
             [akashi.adapters.edn-export :as export]
+            [akashi.adapters.http :as http]
             [akashi.adapters.platform-ad-library-fixture-parser :as parser]
             [akashi.adapters.regulator-bulk-fixture-parser :as canon]
-            [babashka.http-client :as http]
             [clojure.string :as str]
             [akashi.cid :as cid]))
 
@@ -61,21 +61,17 @@
 
 (defn scribe-url
   [url {:keys [http-fn] :as opts
-        :or {http-fn http/get}}]
-  (let [resp (http-fn url {:throw false
-                           :as :string
-                           :headers {"user-agent" "akashi-public-page-scribe/1.0"}})]
-    (when-not (<= 200 (:status resp) 299)
-      (throw (ex-info "public page scribe failed"
-                      {:url url :status (:status resp) :body (subs (str (:body resp)) 0 (min 512 (count (str (:body resp)))))})))
-    (scribe-text (:body resp)
+        :or {http-fn http/get-text}}]
+  (let [resp (http-fn url {:max-bytes (or (:max-page-bytes opts) http/default-max-bytes)})
+        body (or (:text resp) (:body resp))]
+    (scribe-text body
                  (merge opts
                         {:url url
                          :http-status (:status resp)
                          :content-type (get-in resp [:headers "content-type"] "text/html")}))))
 
 (defn snapshot->platform-payload
-  [snapshot {:keys [platform advertiser source-record-id landing-url creative-text started-at ended-at
+  [snapshot {:keys [platform advertiser source-record-id landing-url creative-text media started-at ended-at
                     jurisdiction country disclosed-category]
              :or {platform "public-page"
                   jurisdiction "global"
@@ -101,6 +97,7 @@
                                "verifiedStatus" "not-disclosed"}
                  "landingUrl" (or landing-url url)
                  "creativeText" text
+                 "media" media
                  "disclosedCategory" disclosed-category
                  "sourceIssuePoliticalFlag" "not-applicable"
                  "startedAt" started-at
@@ -115,8 +112,14 @@
   (let [records (parser/parse-platform-ad-library-fixture
                  (snapshot->platform-payload snapshot opts)
                  {:attesting-did attesting-did
-                  :source-policy-cid source-policy-cid
-                  :method-note-cid method-note-cid})]
+                  :source-policy-cid (or (:policy-approval-cid opts) source-policy-cid)
+                  :method-note-cid method-note-cid
+                  :parser-version "public-page-scribe-r1.0"
+                  :method-id "akashi.public-page-scribe"
+                  :method-family "public-information-scribe"
+                  :limits ["public pages or operator-saved public files only"
+                           "no login, UI automation, anti-bot bypass, tracking pixel, or private-data request"
+                           "HTML metadata extraction may not expose JavaScript-rendered ad fields"]})]
     (dry-run/validate-output records)
     records))
 

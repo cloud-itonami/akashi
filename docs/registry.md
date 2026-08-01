@@ -14,6 +14,8 @@ collection by themselves.
 - `source-policy-approval.public-page-scribe.json` authorizes only public pages
   and operator-saved public files. It does not authorize platform-token collection,
   logged-in UI automation, or anti-bot bypass.
+- The approval schema recognizes `official-api`, but no committed transaction
+  currently authorizes it. Meta and LinkedIn API sources therefore fail closed.
 
 The review registry is deliberately data-driven so an adapter can be disabled
 without code changes.

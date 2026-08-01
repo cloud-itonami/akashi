@@ -33,6 +33,15 @@ Current adapter surface:
   akashi lexicon subset used by these records.
 - `dry_run_fixtures.cljc` parses and validates local fixtures, then prints counts
   or records. `--emit-edn` prints EDN tx-data. It has no network mode.
+- `continuous_collector.clj` performs one bounded, policy-approved cycle. It has
+  no login/UI automation/anti-bot mode. It writes Git-resident tx EDN and a
+  Datomic import bundle, while `media_store.clj` content-addresses source media.
+- `collection_query.clj` queries either catalog representation from Git.
+- `murakumo_install.clj` installs the six-hour launchd residence selected by the
+  Murakumo task plane.
+- `manual_capture.clj` consumes operator-saved HTML, screenshots, images, and
+  video from `data/inbox/`; it never opens the source URL and requires explicit
+  operator rights/terms attestation in the sidecar.
 
 Run CLJC adapter tests with `bb test`. Python adapter
 files are intentionally absent.

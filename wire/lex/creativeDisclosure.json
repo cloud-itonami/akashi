@@ -25,6 +25,22 @@
             "type" : "string",
             "maxLength" : 64
           },
+          "mediaPaths" : {
+            "type" : "array",
+            "items" : { "type" : "string" }
+          },
+          "mediaCids" : {
+            "type" : "array",
+            "items" : { "type" : "string" }
+          },
+          "mediaSha256s" : {
+            "type" : "array",
+            "items" : { "type" : "string", "maxLength" : 64 }
+          },
+          "mediaContentTypes" : {
+            "type" : "array",
+            "items" : { "type" : "string" }
+          },
           "sourceSnapshotCid" : {
             "type" : "string"
           },

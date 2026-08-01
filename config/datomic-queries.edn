@@ -1,0 +1,24 @@
+{:ads-by-platform
+ [:find (pull ?ad [*])
+  :in $ ?platform
+  :where
+  [?ad :akashi.record/family "adDisclosureSnapshot"]
+  [?ad :akashi.adDisclosureSnapshot/platform ?platform]]
+
+ :advertisers
+ [:find ?name
+  :where
+  [?advertiser :akashi.record/family "advertiserIdentity"]
+  [?advertiser :akashi.advertiserIdentity/display-name ?name]]
+
+ :media-paths
+ [:find ?path
+  :where
+  [?creative :akashi.record/family "creativeDisclosure"]
+  [?creative :akashi.creativeDisclosure/media-paths ?path]]
+
+ :media-sha256s
+ [:find ?sha256
+  :where
+  [?creative :akashi.record/family "creativeDisclosure"]
+  [?creative :akashi.creativeDisclosure/media-sha256s ?sha256]]}

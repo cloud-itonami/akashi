@@ -1,0 +1,6 @@
+# Queryable metadata stays in Git. Large/raw payloads are content-addressed by
+# git-annex when this checkout is initialized as a DataLad dataset.
+*.edn annex.largefiles=nothing
+data/collection/media/** annex.largefiles=anything
+data/collection/runs/**/raw/** annex.largefiles=anything
+data/collection/runs/**/response/** annex.largefiles=anything

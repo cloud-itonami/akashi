@@ -1,0 +1,11 @@
+;; Run from the murakumo repository:
+;; nbb scripts/run-task.cljs task run --tasks ../../cloud-itonami/akashi/deploy/murakumo-install-task.edn
+;;
+;; The task is pinned to one durable pin+compute node so launchd residence and
+;; the local git-annex content store do not move between retries.
+{:tasks
+ [{:id "install-akashi-continuous-collector"
+   :nodes ["naphtali"]
+   :placement {:roles ["pin" "compute"]}
+   :timeout-ms 120000
+   :cmd "test -d \"$HOME/src/akashi/.git\" || git clone git@github.com:cloud-itonami/akashi.git \"$HOME/src/akashi\"; git -C \"$HOME/src/akashi\" fetch origin; if git -C \"$HOME/src/akashi\" show-ref --verify --quiet refs/remotes/origin/data/continuous-collection; then git -C \"$HOME/src/akashi\" checkout -B data/continuous-collection origin/data/continuous-collection; else git -C \"$HOME/src/akashi\" checkout -B data/continuous-collection origin/main; fi; git -C \"$HOME/src/akashi\" merge --no-edit origin/main; cd \"$HOME/src/akashi\" && clojure -M:install-murakumo --repo \"$HOME/src/akashi\""}]}

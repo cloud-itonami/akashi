@@ -1,0 +1,52 @@
+{:akashi.collection/version 1
+ :interval-seconds 21600
+ :output-root "data/collection"
+ :max-media-bytes 52428800
+ :skip-empty true
+ :inbox {:enabled true
+         :path "data/inbox"
+         :policy-source-id "public-ad-transparency-pages"
+         :policy-approval-file "data/registry/source-policy-approval.public-page-scribe.edn"}
+ :git {:datalad-save true
+       :push true
+       :remote "origin"
+       :branch "data/continuous-collection"
+       ;; Set to the name of a configured git-annex special remote. Git stores
+       ;; hashes/pointers; this remote stores the actual image/video bytes.
+       :annex-remote nil}
+
+ ;; Collection is deliberately target-driven. Add reviewed advertiser/search
+ ;; URLs or enable official API sources; never broaden this into logged-in UI
+ ;; automation or anti-bot bypass.
+ :sources
+ [{:id "meta-public-page-example"
+   :kind :public-page
+   :enabled false
+   :platform "meta"
+   :policy-source-id "public-ad-transparency-pages"
+   :policy-approval-file "data/registry/source-policy-approval.public-page-scribe.edn"
+   :url "https://www.facebook.com/ads/library/?id=REPLACE_WITH_PUBLIC_AD_ID"
+   :jurisdiction "global"}
+
+  {:id "meta-official-api"
+   :kind :meta-ad-library-api
+   :enabled false
+   :platform "meta"
+   :api-version "v23.0"
+   :token-env "META_AD_LIBRARY_ACCESS_TOKEN"
+   :token-command ["security" "find-generic-password" "-w" "-s" "akashi-meta-ad-library"]
+   :search-terms "REPLACE_WITH_REVIEWED_SEARCH"
+   :ad-reached-countries ["JP"]
+   :capture-snapshot-media true
+   :max-pages 3
+   :limit 100}
+
+  {:id "linkedin-official-api"
+   :kind :linkedin-ad-library-api
+   :enabled false
+   :platform "linkedin"
+   :token-env "LINKEDIN_AD_LIBRARY_ACCESS_TOKEN"
+   :token-command ["security" "find-generic-password" "-w" "-s" "akashi-linkedin-ad-library"]
+   ;; LinkedIn reveals the endpoint/schema after Ad Library API product
+   ;; approval. Configure the issued URL here; HTML/UI scraping is not used.
+   :url "REPLACE_WITH_LINKEDIN_AD_LIBRARY_API_URL"}]}

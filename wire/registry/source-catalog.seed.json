@@ -23,6 +23,15 @@
       "requiredBeforeCollection": ["terms-review", "public-access-proof", "public-page-scribe", "no-login-proof"]
     },
     {
+      "id": "linkedin-ad-library",
+      "platforms": ["linkedin"],
+      "sourceFamily": "social-ad-library",
+      "accessMode": "official-api",
+      "collectionStatus": "manual-review",
+      "r0Coverage": "adapter-disabled",
+      "requiredBeforeCollection": ["developer-product-approval", "terms-review", "api-policy-review", "source-policy-approval", "credential"]
+    },
+    {
       "id": "line-ad-disclosure",
       "platforms": ["line"],
       "sourceFamily": "messaging-portal",

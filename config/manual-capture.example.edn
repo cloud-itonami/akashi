@@ -1,0 +1,18 @@
+{:capture/id "meta-example-20260801-001"
+ :capture/platform "meta"
+ :capture/source-url "https://www.facebook.com/ads/library/?id=REPLACE_WITH_PUBLIC_AD_ID"
+ :capture/captured-at "2026-08-01T00:00:00Z"
+ :capture/operator-attested true
+ :capture/rights-basis "Operator confirms this saved public evidence may be retained and processed."
+ :capture/page "saved-ad-page.html"
+ :capture/media
+ [{:path "creative-01.png"
+   :url "https://source.example/public-creative-01.png"
+   :content-type "image/png"}]
+ :capture/source-record-id "REPLACE_WITH_SOURCE_AD_ID"
+ :capture/advertiser "Source-disclosed advertiser"
+ :capture/creative-text "Source-disclosed creative text"
+ :capture/landing-url "https://advertiser.example/landing"
+ :capture/country "JP"
+ :capture/jurisdiction "JP"
+ :capture/disclosed-category "source-disclosed-ad-library"}

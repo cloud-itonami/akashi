@@ -39,6 +39,18 @@
       ]
     },
     {
+      "sourceId": "linkedin-ad-library",
+      "reviewStatus": "api-product-required",
+      "liveCollectionStatus": "disabled",
+      "adapterRuntime": "disabled",
+      "approvedAccessModes": [],
+      "reviewTx": "reserved",
+      "notes": [
+        "Official Ad Library API adapter is implemented but product access, endpoint schema, credential, and policy approval are still required.",
+        "Logged-in UI scraping and anti-bot bypass are not permitted."
+      ]
+    },
+    {
       "sourceId": "line-ad-disclosure",
       "reviewStatus": "manual-review",
       "liveCollectionStatus": "disabled",

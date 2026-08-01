@@ -89,6 +89,23 @@
        frequencies
        (into (sorted-map))))
 
+(defn media-assets [db]
+  (->> (by-family db "creativeDisclosure")
+       (mapcat
+        (fn [entity]
+          (let [paths (or (:akashi.creativeDisclosure/media-paths entity) [])
+                cids (or (:akashi.creativeDisclosure/media-cids entity) [])
+                hashes (or (:akashi.creativeDisclosure/media-sha256s entity) [])
+                types (or (:akashi.creativeDisclosure/media-content-types entity) [])]
+            (mapv (fn [idx path]
+                    {:path path
+                     :cidv1 (nth cids idx nil)
+                     :sha256 (nth hashes idx nil)
+                     :content-type (nth types idx nil)
+                     :creative-cid (:akashi.record/cid entity)})
+                  (range (count paths)) paths))))
+       vec))
+
 (defn delivery-for-snapshot [db snapshot-cid]
   (filterv #(= snapshot-cid (:akashi.deliveryDisclosure/source-snapshot-cid %))
            (by-family db "deliveryDisclosure")))
@@ -98,11 +115,13 @@
    {:op :platform :platform \"meta\"}
    {:op :advertisers}
    {:op :landing-domains}
-   {:op :count-by-platform}"
+   {:op :count-by-platform}
+   {:op :media}"
   [db {:keys [op platform]}]
   (case op
     :platform (by-platform db platform)
     :advertisers (advertiser-names db)
     :landing-domains (landing-domains db)
     :count-by-platform (count-by-platform db)
+    :media (media-assets db)
     (throw (ex-info (str "unsupported akashi query op " op) {:op op}))))

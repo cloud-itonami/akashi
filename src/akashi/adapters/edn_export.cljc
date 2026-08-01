@@ -75,6 +75,10 @@
     (or (str/ends-with? s "/evidence-cids")
         (str/ends-with? s "/method-note-cids")
         (str/ends-with? s "/region-summary")
+        (str/ends-with? s "/media-paths")
+        (str/ends-with? s "/media-cids")
+        (str/ends-with? s "/media-sha256s")
+        (str/ends-with? s "/media-content-types")
         (str/ends-with? s "/source-cids"))))
 
 (defn- value-type [values]

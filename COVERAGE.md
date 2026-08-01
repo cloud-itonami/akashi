@@ -15,6 +15,7 @@ it has:
 | Source family | Platforms | R0 status | Counts as covered? |
 |---|---|---|---|
 | social ad libraries | Meta/Facebook/Instagram, X/Twitter | public-page scribe ready; fixture parser still covered | public page/file only |
+| social ad libraries | LinkedIn | official API adapter implemented; product approval, endpoint, credential, and source-policy approval still required | no |
 | social ad libraries | TikTok | registry seed only; no adapter | no |
 | messaging / portal ad disclosures | LINE | registry seed only; access-mode requires manual review | no |
 | search/video ad libraries | Google / YouTube | registry seed only; no adapter | no |
@@ -44,13 +45,19 @@ creative, landing, delivery, and snapshot lexicons as regulator bulk fixtures.
 Meta/Instagram/X-style JSON snapshots from an operator and emits records,
 DataScript/kotoba tx EDN, or a Datomic schema/scalar-tx import bundle without
 network access.
-`src/akashi/adapters/public_page_scribe.cljc` is the production path for public
+`src/akashi/adapters/public_page_scribe.cljc` and
+`src/akashi/adapters/continuous_collector.clj` are the production paths for public
 information: public pages and operator-saved public files are preserved as raw
 scribe EDN, then parsed into DataScript/kotoba tx EDN and Datomic scalar bundle
-EDN. It has no platform-token mode and materializes EDN only under explicit
-`--materialize`.
+EDN. The continuous collector additionally supports official Meta and LinkedIn
+API responses, but its API sources fail closed without a dedicated approval
+transaction and are disabled in committed configuration.
 `src/akashi/adapters/dry_run_fixtures.cljc` exercises the local fixture set and validates
 every emitted record without network access or writes.
+`src/akashi/adapters/manual_capture.clj` ingests operator-saved public HTML and
+image/video evidence from `data/inbox/` without contacting a platform. Each
+sidecar requires an operator rights/terms attestation and is deduplicated by a
+Git-resident processed marker.
 `wire/fixtures/dry_run/summary.golden.json` pins the dry-run record counts. A second
 regulator fixture covers missing optional source-disclosed fields, and negative
 fixtures prove malformed source records / malak-imported closure records are
@@ -76,8 +83,9 @@ A platform source can move from `candidate` to `covered-r1` only when:
 
 ## R0 Gaps
 
-- Live adapter code exists only for public pages/operator-saved public files.
-  No platform-token path is present.
+- Official API adapter code exists for Meta and LinkedIn, but neither source is
+  activated or counted as covered without product access, credential, target,
+  and an `official-api` policy approval transaction.
 - Regulator bulk and platform ad-library fixture parsers validate output against
   akashi lexicons; no live platform adapter exists.
 - Closure fixtures validate link/report/malak candidate records without live
@@ -88,7 +96,9 @@ A platform source can move from `candidate` to `covered-r1` only when:
   external storage/import by a caller.
 - Dry-run summary has a golden regression fixture.
 - Optional-field and negative fixtures exist for parser regression coverage.
-- No live public-page fetch has been materialized in this workspace.
+- No live continuous-collection fetch has been materialized in this workspace.
+- The API-free manual-capture inbox is operational, but no operator capture has
+  yet been placed in the committed workspace.
 - Fixture EDN and its storage manifest are durably published through GitHub and
   Radicle RID `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`; this is publication
   coverage for the reviewed fixture dataset, not live source coverage.

@@ -25,8 +25,9 @@ but collection and cell execution remain gated.
 | 16 | Source approval tx format | ✅ | fixture-only example + rollback-to-disabled schema |
 | 17 | Dry-run golden output | ✅ | `wire/fixtures/dry_run/summary.golden.json` |
 | 18 | Optional-field and negative fixtures | ✅ | missing optional source fields plus malformed rejection tests |
-| 19 | Live collection | ⚠ scribe-gated | Public-page/file scribe ready for Meta/X; no live public-page fetch materialized in this workspace |
+| 19 | Live collection | ⚠ activation-gated | Continuous public-page/official-API cycle and Murakumo residence implemented; no source enabled or live fetch materialized |
 | 20 | GitHub/Radicle persistence | ✅ fixture dataset | Fixture EDN committed to GitHub and Radicle RID `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`; no live scribe dataset yet |
+| 21 | API-free manual capture | ✅ ready | Offline HTML/media inbox, rights attestation, dedup marker, Datomic/DataLad integration |
 
 ## Maturity Score
 
@@ -37,17 +38,22 @@ but collection and cell execution remain gated.
 | Source coverage | 4/5 | seed catalog plus regulator bulk and Meta/Instagram/X fixture parsers; public-page/file scribe is ready |
 | Constitutional gates | 5/5 | gates documented, schema anchors present, review workflow and invariants lock R0 |
 | Malak boundary | 5/5 | explicit candidate-only handoff in ADR, manifest, lexicon, and closure fixture |
-| Operational readiness | 4/5 | public-page/file scribe and EDN materializer exist; actual live jobs require source URLs/files |
-| Publication durability | 4/5 | fixture EDN is persisted to GitHub and Radicle; DataLad/git-annex handoff is documented; live scribe EDN still pending |
+| Operational readiness | 4/5 | Murakumo launchd install and bounded collector exist; activation requires reviewed targets/API products |
+| Publication durability | 4/5 | Git/Datomic catalog and DataLad/git-annex media pipeline exist; annex remote and first live dataset remain pending |
 
 Overall observed score: **34/35**, still capped at **R0** because live collection
 is intentionally absent.
 
 ## Next R1 Work
 
-1. Run first public-page/file scribe and materialize `data/scribe/*.edn`.
-2. Save scribed EDN via `bb kotoba:annex save data/scribe`.
-3. Append kotoba-rad holding for the live dataset once the first CID is known.
+1. Approve and enable at least one concrete source target in `config/collection.edn`.
+2. Configure the node's API credential and git-annex special remote.
+3. Install through Murakumo and verify the first `data/collection/` commit.
+4. Append kotoba-rad holding for the live dataset once the first CID is known.
+
+Current deployment blocker (2026-08-01): Murakumo's nbb/KIR task planner fails
+on its i64 BigInt boundary and then on KIR string byte offsets. No remote task
+was executed; the planner/runtime must be repaired with its offline suite green.
 
 ## 2026-06-11 — adapter test coverage (loop iteration 2)
 
