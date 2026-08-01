@@ -1,0 +1,1 @@
+#:akashi.collection{:run-id "2026-08-01T04-03-24-497116Z", :captured-at "2026-08-01T04:03:24.497116Z", :status :completed, :sources [{:status :ok}], :source-ids ["inbox-umd-irads-8410"], :catalog {:records 7, :tx-cidv1 "bafkreigqoo3wrqvodweqzewluzevxfkyma2b23rihg377pyv3tdn7ekraa"}, :media-count 1}
