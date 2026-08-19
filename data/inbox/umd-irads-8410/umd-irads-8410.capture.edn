@@ -1,0 +1,20 @@
+{:capture/id "umd-irads-8410"
+ :capture/platform "facebook"
+ :capture/source-url "https://archive.mith.umd.edu/irads/items/show/8410.html"
+ :capture/captured-at "2026-08-01T04:02:31Z"
+ :capture/operator-attested true
+ :capture/rights-basis "University of Maryland MITH publishes the augmented Internet Research Agency Ads Dataset under CC BY; source and attribution are retained. https://archive.mith.umd.edu/irads/data.html"
+ :capture/page "umd-irads-8410/source.html"
+ :capture/media
+ [{:path "umd-irads-8410/creative-2003.png"
+   :url "https://archive.mith.umd.edu/irads/files/original/e6587b684660b098ca6572b79a662216.png"
+   :content-type "image/png"}]
+ :capture/source-record-id "umd-mith-irads-8410"
+ :capture/advertiser "blackmattersus.mvmnt"
+ :capture/creative-text "Indeed! Be proud of your blackness."
+ :capture/landing-url "https://www.facebook.com/blackmattersus.mvmnt/"
+ :capture/started-at "2017-04-14T07:13:57-07:00"
+ :capture/ended-at "2017-04-17T08:00:00-07:00"
+ :capture/country "US"
+ :capture/jurisdiction "US"
+ :capture/disclosed-category "archived-political-influence-ad"}
