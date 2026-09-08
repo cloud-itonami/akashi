@@ -1,14 +1,14 @@
 (ns akashi.adapters.edn-export
   "EDN tx-data exporter for akashi records. Emits Datomic/DataScript-shaped maps
   and a Datomic scalar import bundle without requiring a live DB."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [akashi.adapters.regulator-bulk-fixture-parser :as canon]))
 
 (defn- kebab [s]
   (-> (name s)
       (str/replace #"(?<!^)([A-Z])" "-$1")
       (str/replace #"_" "-")
-      str/lower-case))
+      str/lower))
 
 (defn- record-cid [family record]
   (str "cid:akashi:" family ":" (subs (canon/sha256-json record) 0 32)))
