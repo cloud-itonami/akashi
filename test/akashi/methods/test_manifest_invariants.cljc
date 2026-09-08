@@ -2,7 +2,7 @@
   "akashi — manifest invariants. Reads manifest.edn (:actor/manifest blob);
   the jsonld is retired. Lexicon-shape coverage lives in the CLJC adapter tests."
   (:require [clojure.test :refer [deftest is run-tests]]
-            [clojure.string :as str] [clojure.edn :as edn]))
+            [kotoba.lang.text :as str] [clojure.edn :as edn]))
 
 (def ^:private actor-dir (java.io.File. "."))
 (def ^:private lexdir (java.io.File. actor-dir "wire/lex"))
