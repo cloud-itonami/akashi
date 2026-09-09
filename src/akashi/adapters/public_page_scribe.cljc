@@ -7,7 +7,7 @@
             [akashi.adapters.platform-ad-library-fixture-parser :as parser]
             [akashi.adapters.regulator-bulk-fixture-parser :as canon]
             [babashka.http-client :as http]
-            [kotoba.lang.text :as str]
+            [clojure.string :as str]
             [akashi.cid :as cid]))
 
 (def source-policy-cid "cid:akashi:source-policy:public-page-scribe-r1")
@@ -23,7 +23,7 @@
 
 (defn- domain [url]
   (try
-    (str/lower (or (.getAuthority (java.net.URI. url)) ""))
+    (str/lower-case (or (.getAuthority (java.net.URI. url)) ""))
     (catch Throwable _ "")))
 
 (defn- first-match [re s]

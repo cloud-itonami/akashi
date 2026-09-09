@@ -4,7 +4,7 @@
   mapping with nil-drop, and a full parse of the real sample fixture with golden CIDs pinned to the
   fixture output (payloadCid / payloadSha256 / snapshotCid / creativeText* / domain)."
   (:require [clojure.test :refer [deftest is]]
-            [kotoba.lang.text :as str]
+            [clojure.string :as str]
             [cheshire.core :as json]
             [akashi.adapters.regulator-bulk-fixture-parser :as p]))
 

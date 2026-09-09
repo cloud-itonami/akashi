@@ -21,7 +21,7 @@
   it asserts them. Murakumo-only (G11) + transparent-force (G12) + no-ad-SDK (G8) are manifest-level."
   (:require [clojure.test :refer [deftest is run-tests]]
             [clojure.set :as set]
-            [kotoba.lang.text :as str]
+            [clojure.string :as str]
             [cheshire.core :as json]))
 
 #?(:clj
