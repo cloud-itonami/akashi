@@ -1,7 +1,7 @@
 (ns akashi.adapters.platform-ad-library-fixture-parser
   "Fixture-only parser for local reviewed public platform ad-library snapshots.
   Performs no live fetching."
-  (:require [kotoba.lang.text :as str]))
+  (:require [clojure.string :as str]))
 
 (def PARSER-VERSION "platform-ad-library-fixture-r1.0")
 (def SOURCE-CODE-CID "cid:akashi:platform-ad-library-fixture-parser:r1")
@@ -42,7 +42,7 @@
 
 (defn- domain* [url]
   (let [auth (.getAuthority (java.net.URI. url))]
-    (str/lower (or auth ""))))
+    (str/lower-case (or auth ""))))
 
 (defn- drop-nils [m] (into {} (remove (comp nil? val) m)))
 

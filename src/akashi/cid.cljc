@@ -26,7 +26,7 @@
 ;;   a UnixFS dag-pb tree (codec 0x70) and need the dag builder, out of scope.)
 
 (ns akashi.cid
-  (:require [kotoba.lang.text :as str])
+  (:require [clojure.string :as str])
   #?(:clj (:import (java.security MessageDigest))))
 
 ;; ── multihash codes ──

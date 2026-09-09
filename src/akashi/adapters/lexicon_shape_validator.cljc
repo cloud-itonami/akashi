@@ -3,7 +3,7 @@
   the lexicon-shape subset akashi R0/R1 fixtures use: required fields,
   primitive types, arrays, object refs, const values, knownValues, and
   numeric/string bounds. Records/lexicons are JSON-shaped string-keyed maps."
-  (:require [kotoba.lang.text :as str]))
+  (:require [clojure.string :as str]))
 
 (declare validate-value validate-object)
 

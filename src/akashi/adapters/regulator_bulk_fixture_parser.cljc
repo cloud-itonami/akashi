@@ -6,7 +6,7 @@
 
   CID fidelity: sha256-json uses canonical JSON (sorted keys, compact,
   ensure_ascii-style \\uXXXX escaping, ints as-is) then sha256."
-  (:require [kotoba.lang.text :as str]))
+  (:require [clojure.string :as str]))
 
 (def PARSER-VERSION "regulator-bulk-fixture-r1.0")
 (def SOURCE-CODE-CID "cid:akashi:regulator-bulk-fixture-parser:r1")
@@ -51,7 +51,7 @@
 
 (defn- domain* [url]
   (let [auth (.getAuthority (java.net.URI. url))]
-    (str/lower (or auth ""))))
+    (str/lower-case (or auth ""))))
 
 (defn- drop-nils [m] (into {} (remove (comp nil? val) m)))
 
