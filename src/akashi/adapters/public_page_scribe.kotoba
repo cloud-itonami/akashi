@@ -132,11 +132,11 @@
                             :format "datomic-schema-and-scalar-tx-edn"}
    :akashi.storage/records (reduce + 0 (map #(if (sequential? %) (count %) 1) (vals records)))
    :akashi.storage/git {:path artifact :status "materialized"}
-   :akashi.storage/datalad {:path artifact :next "bb kotoba:annex save data/scribe"}
+   :akashi.storage/datalad {:path artifact :next "kbb -M:kotoba:annex save data/scribe"}
    :akashi.storage/kotoba-rad {:path artifact
                                :cidv1 (cid/cid edn)
                                :akashi.storage/identity-journal "80-data/kotoba-rad/akashi.identity.journal.edn"
-                               :next "bb rad:add-holding akashi --apply"}})
+                               :next "kbb -M:rad:add-holding akashi --apply"}})
 
 (defn materialize!
   [snapshot records {:keys [out datomic raw manifest]

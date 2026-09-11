@@ -1,7 +1,7 @@
 (ns akashi.adapters.dry-run-fixtures
   "Loads local akashi fixtures, parses and validates emitted records against the
   akashi lexicons, and summarizes deterministic dry-run counts. NO network
-  access. Paths are repo-relative (bb runs from the repo root)."
+  access. Paths are repo-relative (kbb -M:runs from the repo root)."
   (:require [cheshire.core :as json]
             [akashi.adapters.lexicon-shape-validator :as validator]
             [akashi.adapters.regulator-bulk-fixture-parser :as parser]

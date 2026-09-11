@@ -11,7 +11,7 @@ source-policy review, but they are not fetched by any live cell.
   `sourcePolicySnapshot`
 - Boundary: fixture-only; no login, scraping, API call, platform page fetch, or
   anti-bot bypass
-- EDN projection: `bb -m akashi.adapters.dry-run-fixtures --emit-edn`
+- EDN projection: `kbb -m akashi.adapters.dry-run-fixtures --emit-edn`
 
 Files:
 
