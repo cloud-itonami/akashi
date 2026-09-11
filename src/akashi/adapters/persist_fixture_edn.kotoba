@@ -36,12 +36,12 @@
                                                            (vals records)))
                   :akashi.storage/git {:path out :status "materialized"}
                   :akashi.storage/datalad {:path out
-                                           :next "bb kotoba:annex save data"}
+                                           :next "kbb -M:kotoba:annex save data"}
                   :akashi.storage/kotoba-rad {:path out
                                               :cidv1 (cid/cid edn)
                                               :akashi.storage/identity-journal
                                               "80-data/kotoba-rad/akashi.identity.journal.edn"
-                                              :next "bb rad:add-holding akashi --apply"}}]
+                                              :next "kbb -M:rad:add-holding akashi --apply"}}]
      (mkdir-parent out)
      (spit out edn)
      (mkdir-parent datomic)

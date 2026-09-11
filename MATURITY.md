@@ -46,14 +46,14 @@ is intentionally absent.
 ## Next R1 Work
 
 1. Run first public-page/file scribe and materialize `data/scribe/*.edn`.
-2. Save scribed EDN via `bb kotoba:annex save data/scribe`.
+2. Save scribed EDN via `kbb -M:kotoba:annex save data/scribe`.
 3. Append kotoba-rad holding for the live dataset once the first CID is known.
 
 ## 2026-06-11 — adapter test coverage (loop iteration 2)
 
 | Item | Status | Evidence |
 |---|---|---|
-| Adapter unit + e2e tests | ✅ CLJC green | `test/akashi/adapters/test_*.cljc` — lexicon validator, regulator fixture parser, dry-run pipeline, EDN query/export/import shape. Run: `bb test` |
+| Adapter unit + e2e tests | ✅ CLJC green | `test/akashi/adapters/test_*.cljc` — lexicon validator, regulator fixture parser, dry-run pipeline, EDN query/export/import shape. Run: `kbb -M:test` |
 
 ## 2026-07-10 — platform ad-library fixture + EDN tx-data
 
@@ -61,10 +61,10 @@ is intentionally absent.
 |---|---|---|
 | Meta/Instagram and X fixture parser | ✅ fixture-only | `src/akashi/adapters/platform_ad_library_fixture_parser.cljc`, `wire/fixtures/platform_ad_library/*.json` |
 | Reviewed local platform export ingest | ✅ local file ingest | `src/akashi/adapters/ingest_platform_ad_library.cljc` ingests operator-provided Meta/Instagram/X-style JSON snapshots; no network mode |
-| EDN tx-data projection | ✅ fixture-only | `src/akashi/adapters/edn_export.cljc`, `bb -m akashi.adapters.dry-run-fixtures --emit-edn`, `--emit-datomic` |
+| EDN tx-data projection | ✅ fixture-only | `src/akashi/adapters/edn_export.cljc`, `kbb -m akashi.adapters.dry-run-fixtures --emit-edn`, `--emit-datomic` |
 | EDN query helper | ✅ fixture-only | `src/akashi/adapters/edn_query.cljc`, `test/akashi/adapters/test_edn_query.cljc` query both DataScript/kotoba tx maps and Datomic scalar bundle |
-| Storage artifact materializer | ✅ saved locally | `src/akashi/adapters/persist_fixture_edn.cljc` writes `data/*.tx.kotoba.edn`, `data/*.datomic.edn`, and CIDv1 manifest; `bb kotoba:annex save data` saved the data artifacts in git/DataLad |
-| Adapter tests | ✅ green | `bb test` |
+| Storage artifact materializer | ✅ saved locally | `src/akashi/adapters/persist_fixture_edn.cljc` writes `data/*.tx.kotoba.edn`, `data/*.datomic.edn`, and CIDv1 manifest; `kbb -M:kotoba:annex save data` saved the data artifacts in git/DataLad |
+| Adapter tests | ✅ green | `kbb -M:test` |
 
 ## 2026-07-10 — repository persistence to GitHub and Radicle
 
@@ -84,5 +84,5 @@ is intentionally absent.
 | Public page/file scribe | ✅ ready | `src/akashi/adapters/public_page_scribe.cljc`, no platform token/login/UI automation mode |
 | Raw scribe EDN | ✅ ready | preserves URL/file, fetchedAt, HTTP status, title/description, body CID/SHA256, raw body |
 | Source-policy approval | ✅ public-page only | `wire/registry/source-policy-approval.public-page-scribe.json` |
-| Scribed EDN materializer | ✅ ready | `bb -m akashi.adapters.public-page-scribe --url ... --materialize`; default output under `data/scribe/` |
+| Scribed EDN materializer | ✅ ready | `kbb -m akashi.adapters.public-page-scribe --url ... --materialize`; default output under `data/scribe/` |
 | First live public-page fetch in this workspace | 未 | no production source URL has been materialized |
