@@ -9,7 +9,7 @@ but collection and cell execution remain gated.
 |---|---|---|---|
 | 1 | Master ADR | ✅ | `90-docs/adr/2606022300-akashi-public-ad-disclosure-kotoba-actor-r0.md` |
 | 2 | Actor README + manifest | ✅ | `README.md`, `wire/manifest.jsonld` |
-| 3 | Root actor index | ✅ | `CLAUDE.md` row |
+| 3 | Root actor index | ✅ | `AGENTS.md` row |
 | 4 | 10 Lexicon skeletons | ✅ | `wire/lex/` |
 | 5 | Method note seed | ✅ | `wire/seed/v1-r0-seed.json` |
 | 6 | Source coverage seed | ✅ | `wire/registry/source-catalog.seed.json` |
