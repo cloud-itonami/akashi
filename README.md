@@ -144,4 +144,4 @@ requires an operator-provided public URL or saved public page file.
 - `/90-docs/adr/2606022300-akashi-public-ad-disclosure-kotoba-actor-r0.md`
 - `/90-docs/adr/2607100000-akashi-platform-ad-library-cljc-edn-ingest.md`
 - `/20-actors/danjo/README.md`
-- `/60-apps/etzhayyim-project-malak/CLAUDE.md`
+- `/60-apps/etzhayyim-project-malak/AGENTS.md`

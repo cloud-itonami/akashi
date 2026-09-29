@@ -117,7 +117,7 @@
       "master": "/90-docs/adr/2606022300-akashi-public-ad-disclosure-kotoba-actor-r0.md",
       "danjoSibling": "/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md",
       "kotoba": "/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md",
-      "malakBoundary": "/60-apps/etzhayyim-project-malak/CLAUDE.md",
+      "malakBoundary": "/60-apps/etzhayyim-project-malak/AGENTS.md",
       "coverage": "/20-actors/akashi/COVERAGE.md",
       "maturity": "/20-actors/akashi/MATURITY.md",
       "lexicons": "/00-contracts/lexicons/com/etzhayyim/akashi/README.md"
